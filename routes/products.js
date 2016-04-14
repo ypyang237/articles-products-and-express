@@ -34,10 +34,11 @@ router.route('/:id')
 router.route('/:id/edit').get(function(req, res) {
 
   res.render('products/edit', {product: pCollection[req.params.id]});
-
-
-
 });
 
+router.route('/new').get(function (req, res) {
+
+  res.render('products/new');
+})
 
 module.exports = router;
