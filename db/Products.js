@@ -1,6 +1,11 @@
+
 var Products = (function () {
 
-  var productArr = [];
+var productArr = [];
+
+  function get() {
+    return productArr;
+  }
 
   function add (reqBody, res) {
 
@@ -33,14 +38,14 @@ var Products = (function () {
   function remove (req, res) {
 
     productArr.splice(req.params.id, 1);
-    console.log(productArr);
+
     res.json({success: true});
 
     // validate success false if product was not in array
   }
-  
-  return {
 
+  return {
+    get: get,
     add: add,
     edit: edit,
     delete: remove

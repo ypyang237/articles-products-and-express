@@ -3,8 +3,15 @@ var express = require('express'),
     products = require('./routes/products.js'),
     articles = require('./routes/articles.js'),
     bp = require('body-parser');
+var jade = require('jade');
+
+app.set('view engine', 'jade');
+app.set('views', './templates');
 
 app.use(bp.urlencoded({extended: true}));
+
+
+
 
 app.use('/products', products);
 // app.use('/articles', articles);
@@ -14,4 +21,4 @@ var server = app.listen(3000, function () {
   var port = server.address().port;
 
   console.log('Listening at 3000');
-})
+});

@@ -1,0 +1,14 @@
+h1(id='productHeader') Edit Products
+
+block content
+  form(name="add-estimation", method="put")
+    each val, key in product
+      div.input
+        span.label= key
+        //- span.label= val
+        input(type="text", name="name", value=val)
+    button Submit
+
+
+
+
