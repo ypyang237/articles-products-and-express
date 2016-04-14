@@ -6,8 +6,6 @@ var express = require('express'),
 var jade = require('jade');
 var methodOverride = require('method-override');
 
-
-
 app.set('view engine', 'jade');
 app.set('views', './templates');
 
@@ -21,8 +19,9 @@ app.use(methodOverride(function(req, res){
     return method;
   }
 }));
+
 app.use('/products', products);
-// app.use('/articles', articles);
+app.use('/articles', articles);
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
