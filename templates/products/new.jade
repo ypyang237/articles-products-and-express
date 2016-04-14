@@ -1,0 +1,16 @@
+h1(id='productHeader') Add a Product!
+
+block content
+  form(method="post" action="/products/" enctype="application/x-www-form-urlencoded")
+      div.input
+        span.label New Product
+        br
+        span.label Name
+        input(type="text", name='name')
+        br
+        span.label Price
+        input(type="text", name='price')
+        br
+        span.label Inventory
+        input(type="text", name='inventory')
+        button(type="submit") Submit
