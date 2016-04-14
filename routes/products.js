@@ -22,6 +22,7 @@ router.route('/')
 router.route('/:id')
   .put(function (req, res) {
     console.log('in route, products');
+    console.log(req.body);
 
     return Products.edit(req.body, res);
   })

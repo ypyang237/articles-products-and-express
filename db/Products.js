@@ -17,9 +17,10 @@ var productArr = [];
   }
 
   function edit (reqBody, res) {
+    console.log('in EDIT, PRODUCTS');
 
     if (reqBody.hasOwnProperty('name')) {
-
+      console.log(reqBody);
       productArr[reqBody.id].name = reqBody.name;
     }
     if (reqBody.hasOwnProperty('price')) {

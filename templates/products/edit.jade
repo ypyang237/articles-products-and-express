@@ -1,13 +1,13 @@
 h1(id='productHeader') Edit Products
 
 block content
-  form(name="add-estimation", method="put")
+  form(method="post" action="/products/" + product.id enctype="application/x-www-form-urlencoded")
     each val, key in product
       div.input
         span.label= key
-        //- span.label= val
+        input(type="hidden", name="_method", value="PUT")
         input(type="text", name="name", value=val)
-    button Submit
+     button(type="submit") Submit
 
 
 
