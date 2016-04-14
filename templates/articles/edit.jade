@@ -1,0 +1,10 @@
+h1(id='articleHeader') Edit Articles
+
+block content
+  form(method="post" action="/articles/" + articles.title enctype="application/x-www-form-urlencoded")
+    each val, key in articles
+      div.input
+        span.label= key
+        input(type="hidden", name="_method", value="PUT")
+        input(type="text", name=key, value=val)
+     button(type="submit") Submit
