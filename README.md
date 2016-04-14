@@ -61,7 +61,7 @@ Inside of your templates directory you should have the templates below in a dire
   - The incoming request will look like this: `{ "title": String, "body": String, "author": String }`
     - from this request you will save your data as `{ "title": String, "body": String, "author": String, "urlTitle": String }`
       - **title** is a unique identifier for this item. You will generate this on the server side and it will be used to access specific products with it
-      - **urlTitle** is similar to the **title** that was passed in but instead is a URL Encoded version. *Javascript has a native way to url-encode strings*. 
+      - **urlTitle** is similar to the **title** that was passed in but instead is a URL Encoded version. *Javascript has a native way to url-encode strings*.
         **example:** If given a title of `"The Best Magpie Developer of 2016"`, it's url-encoded equivilent is `"The%20Best%20Magpie%20Developer%20of%202016"`.
     - Respond with `{ "success": Bool }`, **true** if successful otherwise **false**
 
