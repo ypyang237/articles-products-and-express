@@ -3,18 +3,22 @@ var express = require('express'),
     router = express.Router(),
     bodyParser = require('body-parser'),
     productModel = require('./../db/Products.js');
+    analyticTracker = require('../middleware/logs/analytics.js');
+
+
+
 
 var pCollection = productModel.get();
 
 router.route('/')
-  .post(function (req, res) {
+  .post(analyticTracker(), function (req, res) {
 
     var postObj = {
 
       name: req.body.name,
       price: req.body.price,
       inventory: req.body.inventory
-    }
+    };
 
     productModel.add(postObj, res);
     return res.json({success: true});
@@ -25,7 +29,7 @@ router.route('/')
   });
 
 router.route('/:id')
-  .put(function (req) {
+  .put(function (req, res) {
 
     var editObj = {
 
