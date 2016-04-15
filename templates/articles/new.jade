@@ -1,0 +1,16 @@
+h1(id="articleHeader") Add an Article!
+
+block content
+    form(method="post" action="/articles/" enctype="application/x-www-form-urlencoded")
+      div.input
+        span.label New Article
+        br
+        span.label Title
+        input(type="text", name='title')
+        br
+        span.label Body
+        input(type="text", name='body')
+        br
+        span.label Author
+        input(type="text", name='author')
+        button(type="submit") Submit

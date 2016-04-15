@@ -1,56 +1,60 @@
+var articleFinder = require('./articleFinder');
+
 var Articles = (function () {
 
   var articleArr = [];
 
-  function get(res) {
-    return res.json(articleArr);
+  function get() {
+    return articleArr;
   }
 
-  function add (reqBody, res) {
-
+  function add (reqBody, res, req) {
     articleArr.push(reqBody);
     var currIndex = articleArr.indexOf(reqBody);
-    var uri = reqBody.title;
-    articleArr[currIndex].urlTitle = encodeURI(uri);
+    articleArr[currIndex].urlTitle = encodeURI(reqBody.title);
     res.json({success: true});
     // Need validation
   }
 
   function edit (req, res, reqBody) {
 
-    for (var i = 0; i < articleArr.length; i++) {
+    var targetArt = articleFinder(req, articleArr);
 
-      if (articleArr[i].urlTitle === req.url.slice(1)) {
-
-        if (reqBody.hasOwnProperty('newTitle')) {
-          articleArr[i].title = reqBody.newTitle;
-        }
-
-        if (reqBody.hasOwnProperty('body')) {
-          articleArr[i].body = reqBody.body;
-        }
-
-        if (reqBody.hasOwnProperty('author')) {
-          articleArr[i].author = reqBody.author;
-        }
-
-        articleArr[i].urlTitle = encodeURI(reqBody.title);        
+    if (targetArt.urlTitle === req.url.slice(1)) {
+      if (reqBody.title) {
+        targetArt.urlTitle = encodeURI(reqBody.title);
       }
-      
-      return res.send(articleArr[i]);
+      else if (reqBody.newTitle){
+        targetArt.urlTitle = encodeURI(reqBody.newTitle);
+      }
+      if (reqBody.hasOwnProperty('newTitle')) {
+        targetArt.title = reqBody.newTitle;
+      }
+
+      if (reqBody.hasOwnProperty('body')) {
+        targetArt.body = reqBody.body;
+      }
+
+      if (reqBody.hasOwnProperty('author')) {
+        targetArt.author = reqBody.author;
+      }
+
     }
+
+    return res.send(targetArt);
   }
+
 
   function remove (req, res) {
 
-    for (var i = 0; i < articleArr.length; i++) {
+    var targetArt = articleFinder(req, articleArr);
 
-      if (articleArr[i].urlTitle === req.url.slice(1)) {
+    if (targetArt.urlTitle === req.url.slice(1)) {
 
-        delete articleArr[i];
-        res.json({success: true});
-      }
+      delete targetArt;
+      res.json({success: true});
     }
+
   }
 
   return {
@@ -59,7 +63,7 @@ var Articles = (function () {
     get: get,
     edit: edit,
     delete: remove
-  } 
+  };
 
 })();
 

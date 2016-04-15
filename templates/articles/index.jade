@@ -1,0 +1,10 @@
+h1(id='articleHeader') Articles
+
+block content
+  div
+    each article in articles
+      //- - We want to refactor to interpolation
+      h1= 'title : ' +  article.title
+      h2= 'body : ' + article.body
+      h3= 'author : ' + article.author
+
