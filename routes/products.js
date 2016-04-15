@@ -4,14 +4,13 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     productModel = require('./../db/Products.js');
     analyticTracker = require('../middleware/logs/analytics.js');
-
-
-
+    formValidation = require('../middleware/formValidation');
+    dataTypeValidation = require('../middleware/dataTypeValidation');
 
 var pCollection = productModel.get();
 
 router.route('/')
-  .post(analyticTracker(), analyticTracker(), function (req, res) {
+  .post(analyticTracker(), formValidation(['name', 'price', 'inventory']), dataTypeValidation({name: 'string', price: 'string', inventory: 'number'}), function (req, res) {
 
     var postObj = {
 
@@ -29,7 +28,7 @@ router.route('/')
   });
 
 router.route('/:id')
-  .put(analyticTracker(), function (req, res) {
+  .put(analyticTracker(), dataTypeValidation({name: 'string', price: 'string', inventory: 'number'}), function (req, res) {
 
     var editObj = {
 
