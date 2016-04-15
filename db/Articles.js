@@ -17,26 +17,24 @@ var Articles = (function () {
     // Need validation
   }
 
-  function edit (req, res, reqBody, reqTitle) {
+  function edit (res, editObj, reqTitle, reqNewTitle) {
 
     var targetArt = articleFinder(reqTitle, articleArr);
 
-    if (targetArt.urlTitle === reqTitle) {
-  
-      if (reqBody.hasOwnProperty('newTitle')) {
-        targetArt.title = reqBody.newTitle;
-        targetArt.urlTitle = reqBody.newTitle;
+    console.log('targetArt', targetArt);
+
+      if (reqNewTitle !== null) {
+        targetArt.title = reqNewTitle;
+        targetArt.urlTitle = encodeURI(reqNewTitle);
       }
 
-      if (reqBody.hasOwnProperty('body')) {
-        targetArt.body = reqBody.body;
+      if (editObj.hasOwnProperty('body')) {
+        targetArt.body = editObj.body;
       }
 
-      if (reqBody.hasOwnProperty('author')) {
-        targetArt.author = reqBody.author;
+      if (editObj.hasOwnProperty('author')) {
+        targetArt.author = editObj.author;
       }
-
-    }
 
     return res.send(targetArt);
   }
