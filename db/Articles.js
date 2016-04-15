@@ -12,10 +12,8 @@ var articleModel = (function () {
     articleArr.push(postObj);
     var currIndex = articleArr.indexOf(postObj);
     articleArr[currIndex].urlTitle = encodeURI(postObj.title);
-    
-    console.log('articleArr', articleArr);
+
     return;
-    // Need validation
   }
 
   function edit (editObj, reqTitle, reqNewTitle) {
@@ -36,8 +34,6 @@ var articleModel = (function () {
       }
 
     return targetArt;
-    // return res.send(targetArt);
-    // ^^^ not returning targetArt breaks the edit/put, returned to route /:title put
   }
 
 
