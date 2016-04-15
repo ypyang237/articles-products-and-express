@@ -39,11 +39,16 @@ router.route('/:title')
       author: req.body.author
     }
 
-    return articleModel.edit(res, editObj, reqTitle, reqNewTitle);
+    var targetArt = articleModel.edit(editObj, reqTitle, reqNewTitle);
+    return res.send(targetArt);
+    // ^^ broke without returned targetArt from db/Articles
   })
   .delete(function (req, res) {
 
-    return articleModel.delete(req, res);
+    var reqTitle = req.params.title;
+
+    articleModel.delete(reqTitle);
+    return res.json({success: true});
   });
 
 router.route('/:title/edit').get(function(req, res) {
