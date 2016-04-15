@@ -1,13 +1,13 @@
-var articleFinder = require('../db/articleFinder');
-    // analyticTracker = require('../middleware/analyticTracker');
-
 var express = require('express'),
     app = express(),
     router = express.Router(),
     articleModel = require('./../db/Articles.js');
+    articleFinder = require('../db/articleFinder');
+    formValidation = require('../middleware/formValidation');
+    dataTypeValidation = require('../middleware/dataTypeValidation');
 
 router.route('/')
-  .post(analyticTracker(), function (req, res) {
+  .post(analyticTracker(), formValidation(['title', 'body', 'author']), dataTypeValidation({title: 'string', body: 'string', author: 'string'}),function (req, res) {
 
     var postObj = {
       title: req.body.title,
@@ -24,7 +24,7 @@ router.route('/')
   });
 
 router.route('/:title')
-  .put(analyticTracker(), function (req, res) {
+  .put(analyticTracker(), dataTypeValidation({title: 'string', body: 'string', author: 'string'}), function (req, res) {
 
     var reqTitle = req.params.title;
     var reqNewTitle = null;
