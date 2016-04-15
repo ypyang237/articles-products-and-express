@@ -1,6 +1,6 @@
 var articleFinder = require('./articleFinder');
 
-var Articles = (function () {
+var articleModel = (function () {
 
   var articleArr = [];
 
@@ -62,4 +62,4 @@ var Articles = (function () {
 
 })();
 
-module.exports = Articles;
+module.exports = articleModel;
