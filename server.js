@@ -1,15 +1,15 @@
 var express = require('express'),
     app = express(),
-    products = require('./routes/products.js'), //productsRoute
-    articles = require('./routes/articles.js'), //articlesRoute
-    bp = require('body-parser'); //bodyparser
+    productsRoute = require('./routes/products.js'),
+    articlesRoute = require('./routes/articles.js'),
+    bodyParser = require('body-parser');
 
 var methodOverride = require('method-override');
 
 app.set('view engine', 'jade');
 app.set('views', './templates');
 
-app.use(bp.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(methodOverride(function(req, res){
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -20,8 +20,8 @@ app.use(methodOverride(function(req, res){
   }
 }));
 
-app.use('/products', products);
-app.use('/articles', articles);
+app.use('/products', productsRoute);
+app.use('/articles', articlesRoute);
 
 var server = app.listen(3000, function () {
   var host = server.address().address;

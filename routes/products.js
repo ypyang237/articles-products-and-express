@@ -1,17 +1,15 @@
 var express = require('express'),
     app = express(),
     router = express.Router(),
-    bp = require('body-parser'),
-    Products = require('./../db/Products.js');
+    bodyParser = require('body-parser'),
+    productModel = require('./../db/Products.js');
 
-var pCollection = Products.get();
-
-router.use(bp.urlencoded({extended: true}));
+var pCollection = productModel.get();
 
 router.route('/')
   .post(function (req, res) {
 
-    return Products.add(req.body, res);
+    return productModel.add(req.body, res);
   })
 
   .get(function(req, res) {
@@ -24,11 +22,11 @@ router.route('/:id')
     console.log('in route, products');
     console.log(req.body);
 
-    return Products.edit(req.body, res);
+    return productModel.edit(req.body, res);
   })
   .delete(function (req, res) {
 
-    return Products.delete(req, res);
+    return productModel.delete(req, res);
   });
 
 router.route('/:id/edit').get(function(req, res) {

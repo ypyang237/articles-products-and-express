@@ -1,0 +1,6 @@
+function analyticTracker () {
+  
+  console.log('hi')
+}
+
+module.exports = analyticTracker;

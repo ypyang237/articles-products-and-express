@@ -8,27 +8,24 @@ var Articles = (function () {
     return articleArr;
   }
 
-  function add (reqBody, res, req) {
-    articleArr.push(reqBody);
-    var currIndex = articleArr.indexOf(reqBody);
-    articleArr[currIndex].urlTitle = encodeURI(reqBody.title);
-    res.json({success: true});
+  function add (postObj) {
+    articleArr.push(postObj);
+    var currIndex = articleArr.indexOf(postObj);
+    articleArr[currIndex].urlTitle = encodeURI(postObj.title);
+    
+    return;
     // Need validation
   }
 
-  function edit (req, res, reqBody) {
+  function edit (req, res, reqBody, reqTitle) {
 
-    var targetArt = articleFinder(req, articleArr);
+    var targetArt = articleFinder(reqTitle, articleArr);
 
-    if (targetArt.urlTitle === req.url.slice(1)) {
-      if (reqBody.title) {
-        targetArt.urlTitle = encodeURI(reqBody.title);
-      }
-      else if (reqBody.newTitle){
-        targetArt.urlTitle = encodeURI(reqBody.newTitle);
-      }
+    if (targetArt.urlTitle === reqTitle) {
+  
       if (reqBody.hasOwnProperty('newTitle')) {
         targetArt.title = reqBody.newTitle;
+        targetArt.urlTitle = reqBody.newTitle;
       }
 
       if (reqBody.hasOwnProperty('body')) {

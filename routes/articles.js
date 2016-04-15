@@ -1,34 +1,51 @@
 var articleFinder = require('../db/articleFinder');
+    // analyticTracker = require('../middleware/analyticTracker');
 
 var express = require('express'),
     app = express(),
     router = express.Router(),
-    Articles = require('./../db/Articles.js'); //articlesModel
+    articleModel = require('./../db/Articles.js');
 
 router.route('/')
   .post(function (req, res) {
 
-    return Articles.add(req.body, res, req); //intead of req.body, put a literal object here
+    var postObj = {
+      title: req.body.title,
+      body: req.body.body,
+      author: req.body.author
+    }
+
+    articleModel.add(postObj);
+    return res.json({success: true});
   })
   .get(function (req, res) {
-    var aCollection = Articles.get();
+    var aCollection = articleModel.get();
     res.render('articles/index', {articles: aCollection});
   });
 
 router.route('/:title')
   .put(function (req, res) {
 
-    return Articles.edit(req, res, req.body);
+    var reqTitle = req.params.title;
+
+    if (req.body.newTitle) {
+
+      var reqNewTitle = req.body.newTitle;
+    }
+
+    return articleModel.edit(req, res, req.body, reqTitle);
   })
   .delete(function (req, res) {
 
-    return Articles.delete(req, res);
+    return articleModel.delete(req, res);
   });
 
 router.route('/:title/edit').get(function(req, res) {
 
-  var aCollection = Articles.get();
-  var targetArt = articleFinder(req.params.title, aCollection);
+  var reqTitle = req.params.title;
+
+  var aCollection = articleModel.get();
+  var targetArt = articleFinder(reqTitle, aCollection);
 
   res.render('articles/edit', {articles: targetArt});
 });

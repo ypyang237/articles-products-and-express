@@ -1,15 +1,16 @@
-function articleFinder(req, articleArr) {
+function articleFinder(reqTitle, articleArr) {
+
+  var foundArt;
+
   for(var i = 0; i< articleArr.length; i++) {
-     // console.log(req.url);
-    if(req.url) {
-      if(articleArr[i].urlTitle === req.url.slice(1)) {
-        return articleArr[i];
-      }
-    }
-    if(articleArr[i].urlTitle === req) {
-      return articleArr[i];
+
+    if(articleArr[i].urlTitle === reqTitle) {
+
+      foundArt = articleArr[i];
     }
   }
+
+  return foundArt;
 }
 
 module.exports = articleFinder;
