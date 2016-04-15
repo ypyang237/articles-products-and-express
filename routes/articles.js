@@ -27,13 +27,19 @@ router.route('/:title')
   .put(function (req, res) {
 
     var reqTitle = req.params.title;
-
+    var reqNewTitle = null;
     if (req.body.newTitle) {
 
-      var reqNewTitle = req.body.newTitle;
+      reqNewTitle = req.body.newTitle;
     }
 
-    return articleModel.edit(req, res, req.body, reqTitle);
+    var editObj = {
+
+      body: req.body.body,
+      author: req.body.author
+    }
+
+    return articleModel.edit(res, editObj, reqTitle, reqNewTitle);
   })
   .delete(function (req, res) {
 
