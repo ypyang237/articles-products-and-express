@@ -13,15 +13,14 @@ var Articles = (function () {
     var currIndex = articleArr.indexOf(postObj);
     articleArr[currIndex].urlTitle = encodeURI(postObj.title);
     
+    console.log('articleArr', articleArr);
     return;
     // Need validation
   }
 
-  function edit (res, editObj, reqTitle, reqNewTitle) {
+  function edit (editObj, reqTitle, reqNewTitle) {
 
     var targetArt = articleFinder(reqTitle, articleArr);
-
-    console.log('targetArt', targetArt);
 
       if (reqNewTitle !== null) {
         targetArt.title = reqNewTitle;
@@ -36,18 +35,19 @@ var Articles = (function () {
         targetArt.author = editObj.author;
       }
 
-    return res.send(targetArt);
+    return targetArt;
+    // return res.send(targetArt);
+    // ^^^ not returning targetArt breaks the edit/put, returned to route /:title put
   }
 
 
-  function remove (req, res) {
+  function remove (reqTitle) {
 
-    var targetArt = articleFinder(req, articleArr);
+    var targetArt = articleFinder(reqTitle, articleArr);
 
-    if (targetArt.urlTitle === req.url.slice(1)) {
+    if (targetArt.urlTitle === reqTitle) {
 
-      delete targetArt;
-      res.json({success: true});
+      articleArr.splice(articleArr.indexOf(targetArt), 1);
     }
 
   }
