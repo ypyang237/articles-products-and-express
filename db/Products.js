@@ -1,5 +1,5 @@
 
-var Products = (function () {
+var productModel = (function () {
 
   var productArr = [];
 
@@ -7,40 +7,34 @@ var Products = (function () {
     return productArr;
   }
 
-  function add (reqBody, res) {
+  function add (postObj) {
 
-    productArr.push(reqBody);
-    var currIndex = productArr.indexOf(reqBody);
+    productArr.push(postObj);
+    var currIndex = productArr.indexOf(postObj);
     productArr[currIndex].id = currIndex;
-    res.json({success: true});
     // Need to add success:false if product is already in array
   }
 
-  function edit (reqBody, res) {
+  function edit (editObj) {
 
-    if (reqBody.hasOwnProperty('name')) {
+    if (editObj.hasOwnProperty('name')) {
 
-      productArr[reqBody.id].name = reqBody.name;
+      productArr[editObj.id].name = editObj.name;
     }
-    if (reqBody.hasOwnProperty('price')) {
+    if (editObj.hasOwnProperty('price')) {
 
-      productArr[reqBody.id].price = reqBody.price;
+      productArr[editObj.id].price = editObj.price;
     }
-    if (reqBody.hasOwnProperty('inventory')) {
+    if (editObj.hasOwnProperty('inventory')) {
 
-      productArr[reqBody.id].inventory = reqBody.inventory;
+      productArr[editObj.id].inventory = editObj.inventory;
     }
-
-    return res.send(productArr[reqBody.id]);
     // OPTIMIZE and validate id
   }
 
-  function remove (req, res) {
+  function remove (reqID) {
 
-    productArr.splice(req.params.id, 1);
-
-    res.json({success: true});
-
+    productArr.splice(reqID, 1);
     // validate success false if product was not in array
   }
 
@@ -54,4 +48,4 @@ var Products = (function () {
 })();
 
 
-module.exports = Products;
+module.exports = productModel;
