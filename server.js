@@ -1,9 +1,9 @@
 var express = require('express'),
     app = express(),
-    products = require('./routes/products.js'),
-    articles = require('./routes/articles.js'),
-    bp = require('body-parser');
-var jade = require('jade');
+    products = require('./routes/products.js'), //productsRoute
+    articles = require('./routes/articles.js'), //articlesRoute
+    bp = require('body-parser'); //bodyparser
+
 var methodOverride = require('method-override');
 
 app.set('view engine', 'jade');

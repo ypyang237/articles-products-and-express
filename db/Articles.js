@@ -8,11 +8,10 @@ var Articles = (function () {
     return articleArr;
   }
 
-  function add (reqBody, res) {
+  function add (reqBody, res, req) {
     articleArr.push(reqBody);
     var currIndex = articleArr.indexOf(reqBody);
-    var uri = reqBody.title;
-    articleArr[currIndex].urlTitle = encodeURI(uri);
+    articleArr[currIndex].urlTitle = encodeURI(reqBody.title);
     res.json({success: true});
     // Need validation
   }
@@ -22,7 +21,12 @@ var Articles = (function () {
     var targetArt = articleFinder(req, articleArr);
 
     if (targetArt.urlTitle === req.url.slice(1)) {
-
+      if (reqBody.title) {
+        targetArt.urlTitle = encodeURI(reqBody.title);
+      }
+      else if (reqBody.newTitle){
+        targetArt.urlTitle = encodeURI(reqBody.newTitle);
+      }
       if (reqBody.hasOwnProperty('newTitle')) {
         targetArt.title = reqBody.newTitle;
       }
@@ -35,7 +39,6 @@ var Articles = (function () {
         targetArt.author = reqBody.author;
       }
 
-      targetArt.urlTitle = encodeURI(reqBody.title);
     }
 
     return res.send(targetArt);

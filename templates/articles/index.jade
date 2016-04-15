@@ -3,8 +3,8 @@ h1(id='articleHeader') Articles
 block content
   div
     each article in articles
-      - console.log('here', article.body)
-      h1= 'title : ' + article.title
+      //- - We want to refactor to interpolation
+      h1= 'title : ' +  article.title
       h2= 'body : ' + article.body
       h3= 'author : ' + article.author
 

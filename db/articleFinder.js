@@ -1,5 +1,4 @@
 function articleFinder(req, articleArr) {
-console.log('what is req', req);
   for(var i = 0; i< articleArr.length; i++) {
      // console.log(req.url);
     if(req.url) {
