@@ -14,11 +14,11 @@ function dataTypeValidation (validValues) {
       if (validValues[key] !== inputType) {
 
         return res.sendStatus(500);
-      }  
+      }
     }
 
     return next();
-  }
-};
+  };
+}
 
 module.exports = dataTypeValidation;
