@@ -10,6 +10,14 @@ var articleModel = (function () {
 
   function add (postObj) {
     articleArr.push(postObj);
+
+    for (var key in postObj) {
+
+      if (postObj[key].length === 0) {
+        return false;
+      }
+    }
+
     var currIndex = articleArr.indexOf(postObj);
     articleArr[currIndex].urlTitle = encodeURI(postObj.title);
 
