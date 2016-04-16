@@ -1,13 +1,14 @@
 var express = require('express'),
     app = express(),
     router = express.Router(),
-    articleModel = require('./../db/Articles.js');
-    articleFinder = require('../db/articleFinder');
-    formValidation = require('../middleware/formValidation');
-    dataTypeValidation = require('../middleware/dataTypeValidation');
+    articleModel = require('./../db/Articles.js'),
+    articleFinder = require('../db/articleFinder'),
+    formValidation = require('../middleware/formValidation'),
+    dataTypeValidation = require('../middleware/dataTypeValidation'),
+    headerValidation = require('../middleware/headerValidation');
 
 router.route('/')
-  .post(analyticTracker(), formValidation(['title', 'body', 'author']), dataTypeValidation({title: 'string', body: 'string', author: 'string'}),function (req, res) {
+  .post(analyticTracker(), formValidation(['title', 'body', 'author']), dataTypeValidation({title: 'string', body: 'string', author: 'string'}), headerValidation(), function (req, res) {
 
     var postObj = {
       title: req.body.title,
