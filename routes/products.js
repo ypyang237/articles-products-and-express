@@ -11,7 +11,7 @@ var pCollection = productModel.get();
 
 router.route('/')
   .post(analyticTracker(), formValidation(['name', 'price', 'inventory']), dataTypeValidation({name: 'string', price: 'string', inventory: 'number'}), function (req, res) {
-
+// make object in var at top so only change one place if necessary
     var postObj = {
 
       name: req.body.name,
