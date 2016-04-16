@@ -1,5 +1,5 @@
 function dataTypeValidation (validValues) {
-
+// merge with form validation, use obj.keys
   return function (req, res, next) {
 
     for (var key in req.body) {
@@ -13,8 +13,8 @@ function dataTypeValidation (validValues) {
 
       if (validValues[key] !== inputType) {
 
-        return res.status(400).send('Incorrect data types!');
-      }
+        return res.sendStatus(500);
+      }  
     }
 
     return next();
