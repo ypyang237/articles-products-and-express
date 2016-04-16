@@ -9,7 +9,7 @@ function formValidation (validFields) {
 
     if (missingKeys.length !== 0) {
 
-      return res.status(400).send('Incorrect form keys/values!');
+      return res.sendStatus(500);
     }
 
     return next();
