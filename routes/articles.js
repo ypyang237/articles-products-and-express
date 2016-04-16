@@ -14,7 +14,7 @@ router.route('/')
       title: req.body.title,
       body: req.body.body,
       author: req.body.author
-    }
+    };
 
     articleModel.add(postObj);
     return res.json({success: true});
