@@ -26,8 +26,13 @@ router.route('/')
       author: req.body.author
     };
 
-    articleModel.add(postObj);
-    return res.json({success: true});
+    articleModel.add(postObj)
+      .then(function (article) {
+        res.json({success: true});
+      })
+      .catch(function (error) {
+        res.send(error);
+      });
   });
 
 router.route('/:title')
