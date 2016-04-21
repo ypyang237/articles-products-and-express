@@ -11,7 +11,7 @@ var articleModel = (function () {
   }
 
   function add (postObj) {
-    return db.query('INSERT INTO articles (title, body, author) VALUES (\'' + postObj.title + '\', \'' + postObj.body + '\', \''+ postObj.author+ '\')');
+    return db.query('INSERT INTO articles (title, body, author, urlTitle) VALUES (\'' + postObj.title + '\', \'' + postObj.body + '\', \'' + postObj.author + '\', \'' + postObj.urlTitle + '\')');
   }
 
   function edit (editObj, reqTitle, reqNewTitle) {
