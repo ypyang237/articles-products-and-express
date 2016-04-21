@@ -11,4 +11,4 @@ INSERT INTO articles (title, body, author) VALUES ('Out to hauntya', 'Do not sle
 
 
 -- SELECT * FROM products;
-SELECT * FROM articles;
+-- SELECT * FROM articles;
