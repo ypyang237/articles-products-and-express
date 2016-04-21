@@ -16,22 +16,9 @@ var articleModel = (function () {
 
   function edit (editObj, reqTitle, reqNewTitle) {
 
-    var targetArt = articleFinder(reqTitle, articleArr);
+    var encodedTitle = encodeURI(reqNewTitle);
 
-      if (reqNewTitle !== null) {
-        targetArt.title = reqNewTitle;
-        targetArt.urlTitle = encodeURI(reqNewTitle);
-      }
-
-      if (editObj.hasOwnProperty('body')) {
-        targetArt.body = editObj.body;
-      }
-
-      if (editObj.hasOwnProperty('author')) {
-        targetArt.author = editObj.author;
-      }
-
-    return targetArt;
+    return db.query('UPDATE articles SET title = \'' + reqNewTitle + '\', body = \'' + editObj.body + '\', author = \'' + editObj.author + '\', urlTitle = \'' + encodedTitle + '\' WHERE title = \'' + reqTitle + '\'');
   }
 
 
@@ -43,7 +30,10 @@ var articleModel = (function () {
 
       articleArr.splice(articleArr.indexOf(targetArt), 1);
     }
+  }
 
+  function getOne (title) {
+    return db.query('SELECT * FROM articles WHERE title = \'' + title + '\'');
   }
 
   return {
@@ -51,7 +41,8 @@ var articleModel = (function () {
     add: add,
     get: get,
     edit: edit,
-    delete: remove
+    delete: remove,
+    getOne: getOne
   };
 
 })();
