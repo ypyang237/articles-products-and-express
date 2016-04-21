@@ -20,21 +20,27 @@ router.route('/')
       });
   })
 
-  .post(analyticTracker(), formValidation(['name', 'price', 'inventory']), dataTypeValidation({name: 'string', price: 'string', inventory: 'number'}), function (req, res) {
-// make object in var at top so only change one place if necessary
-    var postObj = {
 
+
+  .post(analyticTracker(),  formValidation(['name', 'price', 'inventory']), dataTypeValidation({name: 'string', price: 'number', inventory: 'number'}), function (req, res) {
+
+    var postObj = {
       name: req.body.name,
       price: req.body.price,
       inventory: req.body.inventory
     };
 
-    productModel.add(postObj, res);
-    return res.json({success: true});
+    productModel.add(postObj)
+      .then(function () {
+        res.json({success: true});
+      })
+      .catch(function(e) {
+        res.send(e);
+      });
   });
 
 router.route('/:id')
-  .put(analyticTracker(), dataTypeValidation({name: 'string', price: 'string', inventory: 'number'}), function (req, res) {
+  .put(analyticTracker(), dataTypeValidation({name: 'string', price: 'number', inventory: 'number'}), function (req, res) {
 
     var editObj = {
 
