@@ -13,11 +13,7 @@ var productModel = (function () {
   }
 
   function add (postObj) {
-
-    productArr.push(postObj);
-    var currIndex = productArr.indexOf(postObj);
-    productArr[currIndex].id = currIndex;
-    // Need to add success:false if product is already in array
+    return db.query('INSERT INTO products (name, price, inventory) VALUES (\'' + postObj.name + '\', \'' + postObj.price + '\', \''+ postObj.inventory+ '\')');
   }
 
   function edit (editObj) {
