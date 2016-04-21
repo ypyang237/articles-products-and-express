@@ -7,9 +7,19 @@ var express = require('express'),
     formValidation = require('../middleware/formValidation');
     dataTypeValidation = require('../middleware/dataTypeValidation');
 
-var pCollection = productModel.get();
 
 router.route('/')
+  .get(analyticTracker(), function(req, res) {
+      var pCollection = productModel.get();
+      pCollection
+      .then(function(products) {
+        res.render('products/index', {products: products});
+      })
+      .catch(function(e) {
+        res.send(e);
+      });
+  })
+
   .post(analyticTracker(), formValidation(['name', 'price', 'inventory']), dataTypeValidation({name: 'string', price: 'string', inventory: 'number'}), function (req, res) {
 // make object in var at top so only change one place if necessary
     var postObj = {
@@ -21,10 +31,6 @@ router.route('/')
 
     productModel.add(postObj, res);
     return res.json({success: true});
-  })
-  .get(analyticTracker(), function(req, res) {
-
-      res.render('products/index', {products: pCollection});
   });
 
 router.route('/:id')
