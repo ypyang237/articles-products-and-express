@@ -7,28 +7,40 @@ var express = require('express'),
     formValidation = require('../middleware/formValidation');
     dataTypeValidation = require('../middleware/dataTypeValidation');
 
-var pCollection = productModel.get();
 
 router.route('/')
-  .post(analyticTracker(), formValidation(['name', 'price', 'inventory']), dataTypeValidation({name: 'string', price: 'string', inventory: 'number'}), function (req, res) {
-// make object in var at top so only change one place if necessary
-    var postObj = {
+  .get(analyticTracker(), function(req, res) {
+      var pCollection = productModel.get();
+      pCollection
+      .then(function(products) {
+        res.render('products/index', {products: products});
+      })
+      .catch(function(e) {
+        res.send(e);
+      });
+  })
 
+
+
+  .post(analyticTracker(),  formValidation(['name', 'price', 'inventory']), dataTypeValidation({name: 'string', price: 'number', inventory: 'number'}), function (req, res) {
+
+    var postObj = {
       name: req.body.name,
       price: req.body.price,
       inventory: req.body.inventory
     };
 
-    productModel.add(postObj, res);
-    return res.json({success: true});
-  })
-  .get(analyticTracker(), function(req, res) {
-
-      res.render('products/index', {products: pCollection});
+    productModel.add(postObj)
+      .then(function () {
+        res.json({success: true});
+      })
+      .catch(function(e) {
+        res.send(e);
+      });
   });
 
 router.route('/:id')
-  .put(analyticTracker(), dataTypeValidation({name: 'string', price: 'string', inventory: 'number'}), function (req, res) {
+  .put(analyticTracker(), dataTypeValidation({name: 'string', price: 'number', inventory: 'number'}), function (req, res) {
 
     var editObj = {
 
