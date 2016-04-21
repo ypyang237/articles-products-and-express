@@ -1,5 +1,4 @@
 window.onload = function () {
-  console.log('hello');
   var xhrForm = document.getElementById('xhrForm');
   xhrForm.addEventListener('submit', function (event) {
 
@@ -20,7 +19,6 @@ window.onload = function () {
 
       postReq += content[i].name + '=' + content[i].value + '&';
     }
-    console.log('POSTREQ', postReq);
     if(document.getElementById('methodOverwrite') === null) {
       method = 'POST';
     } else {
