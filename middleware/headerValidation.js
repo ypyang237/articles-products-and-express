@@ -8,7 +8,7 @@ function headerValidation () {
     }
 
     return next();
-  }
+  };
 }
 
 module.exports = headerValidation;
