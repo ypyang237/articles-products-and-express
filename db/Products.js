@@ -18,19 +18,7 @@ var productModel = (function () {
 
   function edit (editObj) {
 
-    if (editObj.hasOwnProperty('name')) {
-
-      productArr[editObj.id].name = editObj.name;
-    }
-    if (editObj.hasOwnProperty('price')) {
-
-      productArr[editObj.id].price = editObj.price;
-    }
-    if (editObj.hasOwnProperty('inventory')) {
-
-      productArr[editObj.id].inventory = editObj.inventory;
-    }
-    // OPTIMIZE and validate id
+    return db.query('UPDATE products SET name = \'' + editObj.name + '\', price = \'' + editObj.price + '\', inventory = \'' + editObj.inventory + '\' WHERE id = \'' + editObj.id + '\'');
   }
 
   function remove (reqID) {
@@ -39,11 +27,16 @@ var productModel = (function () {
     // validate success false if product was not in array
   }
 
+  function getOne (id) {
+    return db.query('SELECT * FROM products WHERE id = \'' + id + '\'');
+  }
+
   return {
     get: get,
     add: add,
     edit: edit,
-    delete: remove
+    delete: remove,
+    getOne: getOne
   };
 
 })();
