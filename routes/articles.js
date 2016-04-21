@@ -23,7 +23,8 @@ router.route('/')
     var postObj = {
       title: req.body.title,
       body: req.body.body,
-      author: req.body.author
+      author: req.body.author,
+      urlTitle: encodeURI(req.body.title)
     };
 
     articleModel.add(postObj)
@@ -73,7 +74,6 @@ router.route('/:title/edit').get(analyticTracker(), function(req, res) {
 });
 
 router.route('/new').get(analyticTracker(), function(req, res) {
-
   res.render('articles/new');
 });
 
