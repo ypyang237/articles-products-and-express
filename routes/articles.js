@@ -35,10 +35,10 @@ router.route('/')
         res.send(error);
       });
   });
-
+  
 router.route('/:title')
-  .put(analyticTracker(), dataTypeValidation({title: 'string', body: 'string', author: 'string', urlTitle: 'string', newTitle: 'string'}), function (req, res) {
-    console.log('in here', req.body);
+  .put(analyticTracker(), dataTypeValidation({id: 'number', title: 'string', body: 'string', author: 'string', urlTitle: 'string', newTitle: 'string'}), function (req, res) {
+
     var reqTitle = req.params.title;
     var reqNewTitle = null;
     if (req.body.newTitle) {
@@ -53,8 +53,14 @@ router.route('/:title')
     };
 
     var targetArt = articleModel.edit(editObj, reqTitle, reqNewTitle);
-    return res.send({success: true});
-    // ^^ broke without returned targetArt from db/Articles
+    targetArt
+      .then(function (article) {
+
+        res.send({success: true});
+      })
+      .catch(function (error) {
+        res.send(error);
+      });
   })
   .delete(analyticTracker(), function (req, res) {
 
@@ -65,12 +71,15 @@ router.route('/:title')
   });
 
 router.route('/:title/edit').get(analyticTracker(), function(req, res) {
-  var reqTitle = req.params.title;
 
-  var aCollection = articleModel.get();
-  var targetArt = articleFinder(reqTitle, aCollection);
-
-  res.render('articles/edit', {articles: targetArt});
+  articleModel.getOne(req.params.title)
+    .then(function (article) {
+      
+      res.render('articles/edit', {articles: article[0]});
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
 });
 
 router.route('/new').get(analyticTracker(), function(req, res) {
