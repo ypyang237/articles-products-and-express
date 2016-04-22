@@ -66,8 +66,13 @@ router.route('/:title')
 
     var reqTitle = req.params.title;
 
-    articleModel.delete(reqTitle);
-    return res.json({success: true});
+    articleModel.delete(reqTitle)
+      .then(function (article) {
+        res.json({success:true});
+      })
+      .catch(function (error) {
+        res.send(error);
+      });
   });
 
 router.route('/:title/edit').get(analyticTracker(), function(req, res) {
