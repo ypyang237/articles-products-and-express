@@ -24,12 +24,7 @@ var articleModel = (function () {
 
   function remove (reqTitle) {
 
-    var targetArt = articleFinder(reqTitle, articleArr);
-
-    if (targetArt.urltitle === reqTitle) {
-
-      articleArr.splice(articleArr.indexOf(targetArt), 1);
-    }
+    return db.query('DELETE FROM articles WHERE title = \'' + reqTitle + '\'');
   }
 
   function getOne (title) {
