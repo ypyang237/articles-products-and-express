@@ -19,9 +19,6 @@ router.route('/')
         res.send(e);
       });
   })
-
-
-
   .post(analyticTracker(),  formValidation(['name', 'price', 'inventory']), dataTypeValidation({name: 'string', price: 'number', inventory: 'number'}), function (req, res) {
 
     var postObj = {
@@ -40,7 +37,7 @@ router.route('/')
   });
 
 router.route('/:id')
-  .put(analyticTracker(), dataTypeValidation({name: 'string', price: 'number', inventory: 'number'}), function (req, res) {
+  .put(analyticTracker(), dataTypeValidation({id: 'number', name: 'string', price: 'number', inventory: 'number'}), function (req, res) {
 
     var editObj = {
 
@@ -50,8 +47,13 @@ router.route('/:id')
       id: req.body.id
     };
 
-    productModel.edit(editObj, res);
-    return res.json({success: true});
+    productModel.edit(editObj) 
+      .then(function (product) {
+        res.json({success: true});
+      })
+      .catch(function (error) {
+        res.send(error);
+      });
   })
   .delete(analyticTracker(), function (req, res) {
 
@@ -63,7 +65,14 @@ router.route('/:id')
 
 router.route('/:id/edit').get(function(req, res) {
 
-  res.render('products/edit', {product: pCollection[req.params.id]});
+  var selectedProduct = productModel.getOne(req.params.id);
+  selectedProduct
+    .then(function (product) {
+      res.render('products/edit', {product: product[0]});
+    })
+    .catch(function (error) {
+      res.send(error);
+    })
 });
 
 router.route('/new').get(analyticTracker(), function (req, res) {
