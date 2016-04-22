@@ -12,8 +12,10 @@ window.onload = function () {
     var urltitle;
     for(var i = 0; i< content.length; i++) {
       if(content[i].name === 'newTitle') {
+        console.log('newTitle', content[i].name);
         newTitle = content[i].value;
       } else if (content[i].name === 'urltitle'){
+        console.log('Title', content[i].name);
         urltitle = content[i].value;
       }
 
