@@ -6,6 +6,8 @@ block content
       h1= 'title : ' +  article.title
       h2= 'body : ' + article.body
       h3= 'author : ' + article.author
+      form(method="get" action="/articles/#{article.title}/edit")
+          input(type="submit" value="Edit")
       form(method="post" action="/articles/#{article.title}" enctype="application/x-www-form-urlencoded")
           input#methodOverwrite(type="hidden", name="_method", value="DELETE")
           input(type="submit" value="Delete")
