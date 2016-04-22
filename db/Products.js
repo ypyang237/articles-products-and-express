@@ -3,8 +3,13 @@ var productModel = (function () {
 
   var productArr = [];
 
+  var pgp = require('pg-promise')();
+  var dbConn = require('./../config.json');
+  var db = pgp(dbConn);
+
+
   function get() {
-    return productArr;
+    return db.query('SELECT * FROM products');
   }
 
   function add (postObj) {
