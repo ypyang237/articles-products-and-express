@@ -24,7 +24,7 @@ router.route('/')
       title: req.body.title,
       body: req.body.body,
       author: req.body.author,
-      urlTitle: encodeURI(req.body.title)
+      urltitle: encodeURI(req.body.title)
     };
 
     articleModel.add(postObj)
@@ -37,7 +37,7 @@ router.route('/')
   });
   
 router.route('/:title')
-  .put(analyticTracker(), dataTypeValidation({id: 'number', title: 'string', body: 'string', author: 'string', urlTitle: 'string', newTitle: 'string'}), function (req, res) {
+  .put(analyticTracker(), dataTypeValidation({id: 'number', title: 'string', body: 'string', author: 'string', urltitle: 'string', newTitle: 'string'}), function (req, res) {
 
     var reqTitle = req.params.title;
     var reqNewTitle = null;
@@ -74,7 +74,7 @@ router.route('/:title/edit').get(analyticTracker(), function(req, res) {
 
   articleModel.getOne(req.params.title)
     .then(function (article) {
-      
+      console.log('article: ', article);
       res.render('articles/edit', {articles: article[0]});
     })
     .catch(function (error) {
