@@ -8,6 +8,16 @@ var express = require('express'),
     headerValidation = require('../middleware/headerValidation');
 
 router.route('/')
+  .get(analyticTracker(), function (req, res) {
+    var aCollection = articleModel.get();
+    aCollection
+      .then(function (articles) {
+        res.render('articles/index', {articles: articles});
+      })
+      .catch(function (error) {
+        res.send(error);
+      });
+  })
   .post(analyticTracker(), formValidation(['title', 'body', 'author']), dataTypeValidation({title: 'string', body: 'string', author: 'string'}), headerValidation(), function (req, res) {
 
     var postObj = {
@@ -18,12 +28,7 @@ router.route('/')
 
     articleModel.add(postObj);
     return res.json({success: true});
-  })
-  .get(analyticTracker(), function (req, res) {
-    var aCollection = articleModel.get();
-    res.render('articles/index', {articles: aCollection});
   });
-
 
 router.route('/:title')
   .put(analyticTracker(), dataTypeValidation({title: 'string', body: 'string', author: 'string', urlTitle: 'string', newTitle: 'string'}), function (req, res) {

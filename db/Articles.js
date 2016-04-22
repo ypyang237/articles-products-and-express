@@ -2,10 +2,12 @@ var articleFinder = require('./articleFinder');
 
 var articleModel = (function () {
 
-  var articleArr = [];
+  var pgp = require('pg-promise')();
+  var dbConn = require('./../config.json');
+  var db = pgp(dbConn);
 
   function get() {
-    return articleArr;
+    return db.query('SELECT * FROM articles');
   }
 
   function add (postObj) {
