@@ -11,11 +11,7 @@ var articleModel = (function () {
   }
 
   function add (postObj) {
-    articleArr.push(postObj);
-    var currIndex = articleArr.indexOf(postObj);
-    articleArr[currIndex].urlTitle = encodeURI(postObj.title);
-
-    return;
+    return db.query('INSERT INTO articles (title, body, author, urlTitle) VALUES (\'' + postObj.title + '\', \'' + postObj.body + '\', \'' + postObj.author + '\', \'' + postObj.urlTitle + '\')');
   }
 
   function edit (editObj, reqTitle, reqNewTitle) {

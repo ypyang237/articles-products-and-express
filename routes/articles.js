@@ -23,11 +23,17 @@ router.route('/')
     var postObj = {
       title: req.body.title,
       body: req.body.body,
-      author: req.body.author
+      author: req.body.author,
+      urlTitle: encodeURI(req.body.title)
     };
 
-    articleModel.add(postObj);
-    return res.json({success: true});
+    articleModel.add(postObj)
+      .then(function (article) {
+        res.json({success: true});
+      })
+      .catch(function (error) {
+        res.send(error);
+      });
   });
 
 router.route('/:title')
@@ -68,7 +74,6 @@ router.route('/:title/edit').get(analyticTracker(), function(req, res) {
 });
 
 router.route('/new').get(analyticTracker(), function(req, res) {
-
   res.render('articles/new');
 });
 
