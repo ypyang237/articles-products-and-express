@@ -23,8 +23,7 @@ var productModel = (function () {
 
   function remove (reqID) {
 
-    productArr.splice(reqID, 1);
-    // validate success false if product was not in array
+    return db.query('DELETE FROM products WHERE id = \'' + reqID + '\'');
   }
 
   function getOne (id) {

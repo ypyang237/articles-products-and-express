@@ -59,8 +59,14 @@ router.route('/:id')
 
     var reqID = req.params.id;
 
-    productModel.delete(reqID);
-    return res.json({success: true});
+    productModel.delete(reqID)
+      .then(function (product) {
+
+        res.json({success: true});
+      })
+      .catch(function (error) {
+        res.send(error);
+      })
   });
 
 router.route('/:id/edit').get(function(req, res) {
