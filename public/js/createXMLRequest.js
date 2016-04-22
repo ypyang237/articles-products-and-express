@@ -9,12 +9,12 @@ window.onload = function () {
 
     var postReq = '';
     var newTitle;
-    var urlTitle;
+    var urltitle;
     for(var i = 0; i< content.length; i++) {
       if(content[i].name === 'newTitle') {
         newTitle = content[i].value;
-      } else if (content[i].name === 'urlTitle'){
-        urlTitle = content[i].value;
+      } else if (content[i].name === 'urltitle'){
+        urltitle = content[i].value;
       }
 
       postReq += content[i].name + '=' + content[i].value + '&';
@@ -22,7 +22,7 @@ window.onload = function () {
     if(document.getElementById('methodOverwrite') === null) {
       method = 'POST';
     } else {
-      postReq = postReq.replace(urlTitle, encodeURI(newTitle));
+      postReq = postReq.replace(urltitle, encodeURI(newTitle));
     }
 
 
