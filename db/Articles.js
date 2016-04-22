@@ -11,14 +11,14 @@ var articleModel = (function () {
   }
 
   function add (postObj) {
-    return db.query('INSERT INTO articles (title, body, author, urlTitle) VALUES (\'' + postObj.title + '\', \'' + postObj.body + '\', \'' + postObj.author + '\', \'' + postObj.urlTitle + '\')');
+    return db.query('INSERT INTO articles (title, body, author, urltitle) VALUES (\'' + postObj.title + '\', \'' + postObj.body + '\', \'' + postObj.author + '\', \'' + postObj.urltitle + '\')');
   }
 
   function edit (editObj, reqTitle, reqNewTitle) {
 
     var encodedTitle = encodeURI(reqNewTitle);
 
-    return db.query('UPDATE articles SET title = \'' + reqNewTitle + '\', body = \'' + editObj.body + '\', author = \'' + editObj.author + '\', urlTitle = \'' + encodedTitle + '\' WHERE title = \'' + reqTitle + '\'');
+    return db.query('UPDATE articles SET title = \'' + reqNewTitle + '\', body = \'' + editObj.body + '\', author = \'' + editObj.author + '\', urltitle = \'' + encodedTitle + '\' WHERE title = \'' + reqTitle + '\'');
   }
 
 
@@ -26,7 +26,7 @@ var articleModel = (function () {
 
     var targetArt = articleFinder(reqTitle, articleArr);
 
-    if (targetArt.urlTitle === reqTitle) {
+    if (targetArt.urltitle === reqTitle) {
 
       articleArr.splice(articleArr.indexOf(targetArt), 1);
     }
