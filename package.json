@@ -22,5 +22,10 @@
     "jade": "^1.11.0",
     "jade-method-override": "^0.1.0",
     "pg-promise": "^3.9.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.12.3",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1"
   }
 }
