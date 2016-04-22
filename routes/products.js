@@ -47,9 +47,9 @@ router.route('/:id')
       id: req.body.id
     };
 
-    productModel.edit(editObj) 
+    productModel.edit(editObj)
       .then(function (product) {
-        res.json({success: true});
+        res.redirect('/products');
       })
       .catch(function (error) {
         res.send(error);
@@ -66,7 +66,7 @@ router.route('/:id')
       })
       .catch(function (error) {
         res.send(error);
-      })
+      });
   });
 
 router.route('/:id/edit').get(function(req, res) {
@@ -78,7 +78,7 @@ router.route('/:id/edit').get(function(req, res) {
     })
     .catch(function (error) {
       res.send(error);
-    })
+    });
 });
 
 router.route('/new').get(analyticTracker(), function (req, res) {
