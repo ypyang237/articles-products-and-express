@@ -3,12 +3,15 @@ h1(id='productHeader') Products
 
 block content
   div(id="container")
-    
+
     div
       each product in products
         h1= 'name : '+ product.name
         h2= 'price : '+ product.price
         h3= 'inventory : '+ product.inventory
+        form(method="post" action="/products/#{product.id}" enctype="application/x-www-form-urlencoded")
+          input#methodOverwrite(type="hidden", name="_method", value="PUT")
+          button(type="submit") Edit
         form(method="post" action="/products/#{product.id}" enctype="application/x-www-form-urlencoded")
           input#methodOverwrite(type="hidden", name="_method", value="DELETE")
           input(type="submit" value="Delete")
