@@ -2,19 +2,19 @@ function dataTypeValidation (validValues) {
 // merge with form validation, use obj.keys
   return function (req, res, next) {
 
-    for (var key in req.body) {
+    //if temp is true its ok
+    var check = Object.keys(req.body).every(function (key) {
 
-      var inputType = 'string';
-
-      if (isNaN(req.body[key]) === false) {
-
-        inputType = 'number';
+      if (validValues[key] === 'number') {
+        return parseInt(req.body[key]).toString() == req.body[key]; // typeof req.body.id = 'number', validValues['id'] = 'number'
       }
-
-      if (validValues[key] !== inputType) {
-
-        return res.status(500).send('incorrect data type');
+      else {
+        return typeof req.body[key] === validValues[key];
       }
+    });
+
+    if (check === false) {
+      return res.status(400).send('Incorrect data type');
     }
 
     return next();
